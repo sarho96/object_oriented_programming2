@@ -31,4 +31,7 @@ end
 
 chris = Instructor.new("Chris")
 p chris.greeting
-p chris.teach
+
+
+christina = Student.new("Christina")
+p christina.greeting
