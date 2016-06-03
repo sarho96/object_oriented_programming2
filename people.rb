@@ -1,11 +1,19 @@
+
+
+################ Super Class ################
+
 class Person
   def initialize (name)
   @name = name
+  end
 
   def greeting
-    puts "Hi my name is #{name}"
+    puts "Hi my name is #{@name}"
   end
+
 end
+
+################ Sub-Classes ################
 
 class Student < Person
   def learn
@@ -18,3 +26,9 @@ class Instructor < Person
     puts "Everything in Ruby is an Object"
   end
 end
+
+################ Instructions ###############
+
+chris = Instructor.new("Chris")
+p chris.greeting
+p chris.teach
