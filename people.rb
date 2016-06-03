@@ -31,7 +31,9 @@ end
 
 chris = Instructor.new("Chris")
 p chris.greeting
-
+p chris.teach
 
 christina = Student.new("Christina")
 p christina.greeting
+p christina.learn
+p christina.teach #cannot use .teach method on christina because christina is an instance of Instructor class; .teach method is only defined in Student class
