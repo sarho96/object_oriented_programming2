@@ -36,4 +36,6 @@ p chris.teach
 christina = Student.new("Christina")
 p christina.greeting
 p christina.learn
-p christina.teach #cannot use .teach method on christina because christina is an instance of Instructor class; .teach method is only defined in Student class
+p christina.teach
+#cannot use .teach method on christina because christina is an instance of Instructor class;
+#.teach method is only defined in Student class and will only work on the instance created under that class
