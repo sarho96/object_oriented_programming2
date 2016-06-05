@@ -11,50 +11,45 @@ class Items
   end
 end
 
+# created an Item class which initializes instance variables:
+# name, price, sales_tax, and import_tax
+
 ################ Receipt Class ################
 
 class Receipt
   attr_reader :item_list, :sales_tax_total, :total_price
 #instances
   def initialize (item_list)
-    @item_list = item_list
-    @sales_tax_total = 0
-    @total_price = 0
+    @item_list = item_list #dertermines whether sales/import tax is applicable
+    @sales_tax_total = 0 #this calculates the total of just sales taxes applied
+    @total_price = 0 #this calculates the total of all items together
   end
 
 #methods
 #### Tax Calculation (True or False) ####
 
-  def tax_total(price, sales_tax, import_tax)
+  def tax_total(price, sales_tax, import_tax) #calculates the sales/import tax
       if (sales_tax == "true" && import_tax == "true")
-        puts "True/True #{price * 10}"
         @sales_tax_total +=  price * (0.10 + 0.05)
         price *= (1.10 + 0.05)
       elsif (sales_tax == "false") && (import_tax == "false")
-        puts "False/False"
         price
       elsif (sales_tax == "false") && (import_tax == "true")
-        puts "false/true"
         @sales_tax_total +=  price * 0.05
         price *= 1.05
       elsif (sales_tax == "true") && (import_tax == "false")
-        puts " true/false #{price * 10}"
-        # puts "hello #{test * 10}"
         @sales_tax_total +=  price * 0.10
         price *= 1.10
       end
-      # puts "total: #{price + 10}"
       return price
   end
 
   def output
-    # in method calculate:
-    # output total sales taxes
+    # in method calculate total sales taxes
     puts "ITEMS"
-    item_list.each do |iterate|
-      puts "1 #{iterate.name} at #{tax_total(iterate.price, iterate.sales_tax, iterate.import_tax)}"
+    @item_list.each do |iterate|
       # are items sales/import tax applicable?
-
+      puts "1 #{iterate.name} at #{tax_total(iterate.price, iterate.sales_tax, iterate.import_tax)}"
       @total_price += iterate.price
     end
     puts "Sales Taxes: #{@sales_tax_total}"
@@ -71,9 +66,9 @@ chocolate_bar = Items.new("Chocolate Bar", 0.85, "false", "false")
 import_chocolate_box = Items.new("Imported Box of Chocolates", 10, "false", "true")
 import_bottle_perfume = Items.new("Imported Bottle of Perfume", 47.50, "true", "true")
 
+
+
 #puts '%.2f' % [(bag.tax_total).round(2)/100)]
-
-
 # create an array
 receipt_items = []
 
@@ -87,12 +82,7 @@ receipt_items << chocolate_bar
 receipt_items2 << import_chocolate_box
 receipt_items2 << import_bottle_perfume
 
-
-
-
-
 #created receipt object
-
   receipt = Receipt.new(receipt_items)
   receipt.output
 
