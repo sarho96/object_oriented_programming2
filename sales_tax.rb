@@ -14,9 +14,10 @@ end
 ################ Receipt Class ################
 
 class Receipt
-  attr_reader :shelf_items, :sales_tax_total, :total_price
-  def initialize (shelf_items)
-    @shelf_items = shelf_items
+  attr_reader :items_tax_applicable, :sales_tax_total, :total_price
+
+  def initialize (items_tax_applicable)
+    @items_tax_applicable = items_tax_applicable #determines whether sales/import tax applicable
     @sales_tax_total = 0
     @total_price = 0
   end
@@ -34,14 +35,12 @@ class Receipt
         @sales_tax_total +=  price * 0.10
         price *= 1.10
       end
-      return price = price.round(2)
+      return price.round(2)
   end
 
-  def output
-    # in method calculate total sales taxes
-    @shelf_items.each do |iterate|
-      # are items sales/import tax applicable?
-      puts "1 #{iterate.name} at #{tax_total(iterate.price, iterate.sales_tax, iterate.import_tax)}"
+  def output #method runs a loop that calculates taxes applicable on all items and outputs their results
+    @items_tax_applicable.each do |iterate|
+      puts "1 #{iterate.name} at #{tax_total(iterate.price, iterate.sales_tax, iterate.import_tax)}" #call tax_total method and parameters
       @total_price += iterate.price
     end
     puts "Sales Taxes: #{@sales_tax_total.round(2)}"
@@ -62,14 +61,14 @@ headache_pills = Items.new("Packet of Headache Pills", 9.75, "false", "false")
 import_chocolate_box2 = Items.new("Imported Box of Chocolates", 11.85, "false", "true")
 
 # create arrays
-receipt_items = []
+receipt_items1 = []
 receipt_items2 = []
 receipt_items3 = []
 
 # add items into array
-receipt_items << book
-receipt_items << music_CD
-receipt_items << chocolate_bar
+receipt_items1 << book
+receipt_items1 << music_CD
+receipt_items1 << chocolate_bar
 receipt_items2 << import_chocolate_box
 receipt_items2 << import_bottle_perfume
 receipt_items3 << import_bottle_perfume2
@@ -78,7 +77,7 @@ receipt_items3 << headache_pills
 receipt_items3 << import_chocolate_box2
 
 #created receipt object
-  receipt = Receipt.new(receipt_items)
+  receipt = Receipt.new(receipt_items1)
   receipt.output
 
 puts "\n"
