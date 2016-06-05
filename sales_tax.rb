@@ -5,7 +5,7 @@ class Items
 
   def initialize(name, price, sales_tax, import_tax)
     @name = name
-    @price = price.to_f
+    @price = price
     @sales_tax = sales_tax
     @import_tax = import_tax
   end
@@ -26,18 +26,25 @@ class Receipt
 #### Tax Calculation (True or False) ####
 
   def tax_total(price, sales_tax, import_tax)
-      if (import_tax == "true") && (sales_tax == "true")
-        price * (1.10 + 0.05)
-         @sales_tax_total +=  price * (0.10 + 0.05)
-      elsif (import_tax == "false") && (sales_tax == "false")
+      if (sales_tax == "true" && import_tax == "true")
+        puts "True/True #{price * 10}"
+        @sales_tax_total +=  price * (0.10 + 0.05)
+        price *= (1.10 + 0.05)
+      elsif (sales_tax == "false") && (import_tax == "false")
+        puts "False/False"
         price
-      elsif (import_tax == "false") && (sales_tax == "true")
-        price * 1.10
-         @sales_tax_total +=  price * 0.10
-      elsif (import_tax == "true") && (sales_tax == "false")
-        price * 1.05
-         @sales_tax_total +=  price * 0.05
+      elsif (sales_tax == "false") && (import_tax == "true")
+        puts "false/true"
+        @sales_tax_total +=  price * 0.05
+        price *= 1.05
+      elsif (sales_tax == "true") && (import_tax == "false")
+        puts " true/false #{price * 10}"
+        # puts "hello #{test * 10}"
+        @sales_tax_total +=  price * 0.10
+        price *= 1.10
       end
+      # puts "total: #{price + 10}"
+      return price
   end
 
   def output
@@ -45,9 +52,9 @@ class Receipt
     # output total sales taxes
     puts "ITEMS"
     item_list.each do |iterate|
-      puts "1 #{iterate.name} at #{iterate.price}"
+      puts "1 #{iterate.name} at #{tax_total(iterate.price, iterate.sales_tax, iterate.import_tax)}"
       # are items sales/import tax applicable?
-      tax_total(iterate.price, iterate.sales_tax, iterate.sales_tax)
+
       @total_price += iterate.price
     end
     puts "Sales Taxes: #{@sales_tax_total}"
@@ -63,7 +70,6 @@ music_CD = Items.new("Music CD", 14.99, "true", "false")
 chocolate_bar = Items.new("Chocolate Bar", 0.85, "false", "false")
 import_chocolate_box = Items.new("Imported Box of Chocolates", 10, "false", "true")
 import_bottle_perfume = Items.new("Imported Bottle of Perfume", 47.50, "true", "true")
-
 
 #puts '%.2f' % [(bag.tax_total).round(2)/100)]
 
